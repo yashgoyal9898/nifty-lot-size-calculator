@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lot Size Calculator</title>
+    <style>
+        .lot-size-calculator {
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .lot-size-calculator .lsc-ipt {
+            margin: 24px;
+        }
+    </style>
+</head>
+<body>
+    <main>
+        <section class="lot-size-calculator">
+            <div>
+                <div class="lsc-ipt"><label>Enter Risk Amount: <input type="number" id="risk-amount" value="0"></label><br></div>
+                <div class="lsc-ipt"><label>Enter SL Points: <input type="number" id="stop-loss-points" value="0"></label><br></div>
+                <div class="lsc-ipt"><label>Nifty Lot Size: <input type="number" id="nifty-lot-size" value="25" readonly></label><br></div>
+                <div class="lsc-ipt"><label>Quantity Taken: <input type="number" id="result-lot-size" value="0" readonly></label><br></div>
+                <div class="lsc-ipt"> <button onclick="calculateLotSize()">Calculate</button></div>
+            </div>
+        </section>
+    </main>
+    <script>
+        function calculateLotSize() {
+            let riskAmount = document.getElementById('risk-amount').value;
+            let stopLossPoints = document.getElementById('stop-loss-points').value;
+            let niftyLotSize = document.getElementById('nifty-lot-size').value;
+            
+            if (stopLossPoints > 0) {
+                // Calculate the number of lots that can be taken
+                let resultLotSize = (riskAmount / stopLossPoints) / niftyLotSize;
+                document.getElementById('result-lot-size').value = (Math.floor(resultLotSize))*niftyLotSize; // Rounds down to nearest integer
+            } else {
+                alert("Please enter valid Stop Loss points.");
+            }
+        }
+    </script>
+</body>
+</html>
